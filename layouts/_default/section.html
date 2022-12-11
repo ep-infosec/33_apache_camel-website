@@ -1,0 +1,13 @@
+{{ partial "header.html" . }}
+
+    <article class="static doc {{ .Page.Section }}">
+
+        {{ with .Title }}
+            <h1>{{ . }} </h1>
+        {{ end }}
+
+        {{ .Content }}
+
+    </article>
+
+{{ partial "footer.html" . }}

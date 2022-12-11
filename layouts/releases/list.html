@@ -1,0 +1,23 @@
+{{ partial "header.html" . }}
+
+<main class="main">
+  <article class="static doc">
+    {{ .Content }}
+
+    <p>
+        On this page you'll find archived releases of:
+        <dl>
+            {{ range $category := sort (index .Site.Data "release-categories") ".order" }}
+                <dd><a href="#{{ $category.id }}">Apache {{ $category.name }}</a></dd>
+            {{ end }}
+        </dl>
+    </p>
+
+    {{ range $category := sort (index .Site.Data "release-categories") ".order" }}
+        <h2 id="{{ $category.id }}"><a class="anchor" href="#{{ $category.id }}"></a>Releases of {{ $category.name }}</h2>
+        {{ partial "releases/release-table.html" (where (where $.Site.Pages "Section" "releases") ".Params.category" $category.id) }}
+    {{ end }}
+  </article>
+</main>
+
+{{ partial "footer.html" . }}

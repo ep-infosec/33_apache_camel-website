@@ -1,0 +1,6 @@
+    - require: "@djencks/antora-site-manifest"
+      import-manifests:
+        - primary-site-manifest-url: https://camel.apache.org/site-manifest.json
+
+    - require: '@djencks/antora-timer'
+      log_level: info

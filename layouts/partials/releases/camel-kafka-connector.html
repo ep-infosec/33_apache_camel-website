@@ -1,0 +1,40 @@
+<h2 id="maven"><a class="anchor" href="#maven"></a>Getting the binaries from Maven Central</h2>
+
+<p>We maintain a handy table linking to binary packages for the latest release on the <a href="/camel-kafka-connector/next/reference/index.html">connector list</a>.</p>
+
+<p>For this release you can use Maven Central Repository Search to find and download the binary packages. This search will show the packages from this release: <code>g:org.apache.camel.kafkaconnector AND l:package AND v:{{ .Params.version }}</code>, or you can follow this link to the <a href="https://search.maven.org/search?q=g:org.apache.camel.kafkaconnector%20AND%20l:package%20AND%20v:{{ .Params.version }}">search results</a>.</p>
+
+<h2 id="source"><a class="anchor" href="#source"></a>Source Distribution</h2>
+
+<p>
+  Source distribution contains all the artifacts Apache Camel project
+  distributes in source form
+</p>
+
+{{ partial "releases/downloads.html" (dict "Category" (index (index $.Site.Data "release-categories") "camel-kafka-connector") "Pages" $.Site.Pages "Version" .Params.version) }}
+
+<h2 id="git"><a class="anchor" href="#git"></a>Git tag checkout</h2>
+<p>
+  Release is tagged with
+  <code>camel-kafka-connector{{ .Params.version }}</code> in the Git, to fetch
+  it use:
+</p>
+<pre>
+git clone https://git-wip-us.apache.org/repos/asf/camel-kafka-connector.git
+cd camel-kafka-connector
+git checkout camel-kafka-connector-{{ .Params.version }}</pre>
+
+<h2 id="resolved"><a class="anchor" href="#resolved"></a>Resolved issues</h2>
+<p>Here is a list of all the issues that have been resolved for this release</p>
+{{ $headers := dict }}
+{{ with os.Getenv "GITHUB_TOKEN" }}
+  {{ $headers = dict "Authorization" (printf "Bearer %s" .) }}
+{{ else }}
+  {{ $headers = dict "Authorization" (printf "Basic %s" (printf "%s:%s" $.Site.Params.GitHubUsername $.Site.Params.GitHubToken | base64Encode)) }}
+{{ end }}
+{{ $issues := getJSON "https://api.github.com/repos/apache/camel-kafka-connector/issues?state=closed&labels=" (string .Params.version) $headers }}
+<dl>
+{{ range $issues }}
+  <dt><a href="{{ .html_url }}">#{{ .number }}</a></dt><dd>{{ .title }}</dd>
+{{ end }}
+</dl>

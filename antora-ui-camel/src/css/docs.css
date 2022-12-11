@@ -1,0 +1,15 @@
+.docs,
+.community {
+  padding: 1rem 3rem 2rem;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 1024px) {
+  .docs,
+  .community {
+    padding: 0 1rem 4rem;
+    width: 100%;
+  }
+}

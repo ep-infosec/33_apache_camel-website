@@ -1,0 +1,31 @@
+{{ partial "header.html" . }}
+
+<div class="body">
+    <nav class="toolbar">
+        <button class="nav-toggle" aria-label="Toggle submenu">
+        </button>
+    </nav>
+    <nav class="nav-container doc blog list">
+        <aside class="nav">
+            <div class="nav-category">
+                <h3>Categories</h3>
+                <ul>
+                    {{ range .Site.Taxonomies.categories.Alphabetical }}
+                    <li><a class="category"
+                            href="{{ "/categories/" | relURL }}{{ .Name | urlize }}/">{{ .Name | upper }}<span>{{ .Count }}</span></a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </aside>
+    </nav>
+    <main class="doc blog list">
+        <div>
+            {{ range .Pages }}
+            {{ .Render "summary" }}
+            {{ end }}
+        </div>
+    </main>
+</div>
+
+{{ partial "footer.html" . }}

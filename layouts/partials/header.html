@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ "apple-touch-icon-57x57.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ "apple-touch-icon-114x114.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ "apple-touch-icon-72x72.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ "apple-touch-icon-144x144.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ "apple-touch-icon-60x60.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ "apple-touch-icon-120x120.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ "apple-touch-icon-76x76.png" | relURL }}">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ "apple-touch-icon-152x152.png" | relURL }}">
+    <link rel="icon" type="image/png" href="{{ "favicon-196x196.png" | relURL }}" sizes="196x196">
+    <link rel="icon" type="image/png" href="{{ "favicon-96x96.png" | relURL }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ "favicon-32x32.png" | relURL }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ "favicon-16x16.png" | relURL }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ "favicon-128.png" | relURL }}" sizes="128x128">
+    <meta name="application-name" content="Apache Camel">
+
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    {{ if .Description}}
+        <meta name="og:description" content="{{ .Description }}">
+    {{ else }}
+        {{ if .Params.preview}}
+        <meta name="og:description" content="{{ .Params.preview }}">
+        {{ end }}
+    {{ end }}
+    <meta property="og:type" content="website">
+    {{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ with $featured }}
+        <meta property="og:image" content="{{ $featured.Permalink }}">
+    {{ else }}
+        <meta property="og:image" content="{{ .Site.Params.organizationLogo }}">
+    {{ end }}
+
+    <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+    <title>{{ block "title" . }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ if .Description}}
+    <meta name="description" content="{{ .Description }}">
+    {{ end }}
+    {{ if .Keywords}}
+    <meta name="keywords" content="{{ .Keywords }}">
+    {{ end }}
+    <link rel="stylesheet" href="{{ path.Join "_" (index .Site.Data "rev-manifest" "css/site.css") | relURL }}">
+</head>
+
+<body class="{{ if .Page.IsHome }}homepage {{ end }}article">
+    <header class="header">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a class="nav-logo" href="{{ .Site.BaseURL | relURL }}" title="{{ .Site.Title }}"></a>
+                <div id="topbar-nav" class="navbar-menu">
+                    <div class="navbar-end">
+                        {{ range .Site.Menus.main }}
+                        <a class="navbar-item-section navbar-item navbar-topics" href="{{ .URL | relURL }}">
+                            <img alt="{{ .Name }}" src="{{ path.Join "_" (index site.Data "rev-manifest" (string .Pre)) | relURL }}">
+                            {{ .Name }}
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="navbar-fill"></div>
+                <div class="break-row"></div>
+                <div class="navbar-search results-hidden">
+                    <input id="search" class="search" placeholder="Search" autocomplete="off">
+                    <img src= "{{ path.Join "_" (index .Site.Data "rev-manifest" "img/cancel.svg") | relURL }}" alt="Clear" id="search-cancel">
+                    <div id="search_results"></div>
+                </div>
+                <div class="navbar-tools">
+                  <a rel="noopener noreferrer nofollow" href="https://github.com/apache/camel/" title="Collaborate on GitHub"><svg focusable="false" class="brand-icon"><use href="{{ path.Join "_" (index .Site.Data "rev-manifest" "img/brand-logos.svg") | relURL }}#github" /></svg></a>
+                  <a rel="noopener noreferrer nofollow" href="https://camel.zulipchat.com" title="Chat on Zulip"><svg focusable="false" class="brand-icon"><use href="{{ path.Join "_" (index .Site.Data "rev-manifest" "img/brand-logos.svg") | relURL }}#zulip" /></svg></a>
+                  <a rel="noopener noreferrer nofollow" href="https://twitter.com/ApacheCamel" title="Follow Apache Camel on Twitter"><svg focusable="false" class="brand-icon"><use href="{{ path.Join "_" (index .Site.Data "rev-manifest" "img/brand-logos.svg") | relURL }}#twitter" /></svg></a>
+                  <a rel="noopener noreferrer nofollow" href="https://www.linkedin.com/groups/2447439/" title="Apache Camel group on Linkedin"><svg focusable="false" class="brand-icon"><use href="{{ path.Join "_" (index .Site.Data "rev-manifest" "img/brand-logos.svg") | relURL }}#linkedin" /></svg></a>
+                </div>
+                <button class="navbar-burger" data-target="topbar-nav" type="button" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <a id="top"></a>

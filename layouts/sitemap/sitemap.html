@@ -1,0 +1,40 @@
+{{ partial "header.html" . }}
+
+<div class="body">
+    <main class="article">
+        <div class="content">
+            <article class="static doc sitemap"> 
+                <h1 class="page">{{ .Title }} </h1>
+                <h2>Overview</h2>
+                <ul class="sitemap-list">
+                    {{ $currentPage := .Permalink }}
+                    {{ range .Site.Sections }}
+                        {{ if not (eq $currentPage .Permalink) }} 
+                            <li><a href="{{ .RelPermalink }}">{{.Title}}</a></li>
+                        {{end}}
+                    {{ end }}
+                </ul>
+                <a href="/docs/"><h2>Documentation</h2></a>
+                <ul class="sitemap-list">
+                    <li><a href="/manual/getting-started.html">Getting Started</a></li>
+                    <li><a href="/manual/">User Manual</a></li>
+                    <li><a href="/manual/faq/">Frequently Asked Questions</a></li>
+                    <li><a href="/components/next/">Component Reference</a></li>
+                    <li><a href="/components/next/dataformats/">Data Formats</a></li>
+                    <li><a href="/components/next/eips/enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li>
+                </ul>
+                <a href="/docs/"><h2>Sub Projects</h2></a>
+                <ul class="sitemap-list">
+                    <li><a href="/manual/">Camel Core</a></li>
+                    <li><a href="/camel-k/next/">Camel K</a></li>
+                    <li><a href="/camel-quarkus/next/">Camel Quarkus</a></li>
+                    <li><a href="/camel-spring-boot/next/">Camel Spring Boot</a></li>
+                    <li><a href="/camel-kafka-connector/next/">Camel Kafka Connector</a></li>
+                    <li><a href="/camel-karaf/next/">Camel Karaf</a></li>
+                </ul>
+            </article>
+        </div>
+    </main>
+</div>
+
+{{ partial "footer.html" . }}

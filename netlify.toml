@@ -1,0 +1,6 @@
+[build]
+  command = "yarn build-all"
+  environment = { CAMEL_ENV = "netlify", YARN_VERSION = "1.22.5" }
+
+[build.processing]
+  skip_processing = false
